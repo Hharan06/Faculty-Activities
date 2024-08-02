@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Activities</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('FA/image/ssn-college.jpeg');            
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content-box {
+            border-radius: 20px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-size: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-size: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2ecc71;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+            font-size: 18px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="content-box">
+                    <h1>Faculty Activities</h1>
+                    <p>Explore various activities and roles within the faculty community.</p>
+
+                    <div class="btn-container">
+                        <a href="admin" class="btn btn-primary">
+                            <i class="fas fa-user-cog"></i> Admin
+                        </a>
+                        <a href="faculty" class="btn btn-primary">
+                            <i class="fas fa-chalkboard-teacher"></i> Faculty
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

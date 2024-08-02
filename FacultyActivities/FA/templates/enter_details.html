@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include required stylesheets -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('FA/image/ssn-college.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            padding: 50px 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 16px;
+            transition: box-shadow 0.3s ease;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .daterangepicker {
+            z-index: 9999 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Enter Event Details</h1>
+        <form action="submit_details" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+            {%csrf_token%}
+            <div class="form-group">
+                <label for="staff_attended">Staff Attended:</label>
+                <select id="staff_attended" name="staff_attended" class="form-control" required>
+                    <option value="">Select Staff Attended</option>                  
+                    <option value="Dr. Anita">Dr. Anita</option>
+                    <option value="Dr. S. Karthikaa">Dr. S. Karthika</option>
+                    <option value="Dr. I. Joe Louis Paul">Dr. I. Joe Louis Paul</option>
+                    <option value="Dr. Sornavalli G">Dr. Sornavalli G</option>
+                    <option value="Dr. Ashwinth Janarthanan">Dr. Ashwinth Janarthanan</option>
+                    <option value="Dr.V.Arulkumar">Dr.V.Arulkumar</option>
+                    <option value="Dr. A. Shahina">Dr. A. Shahina</option>
+                    <option value="Dr. N. Sripriya">Dr. N. Sripriya</option>
+                    <option value="Dr. V. Sivamurugan">Dr. V. Sivamurugan</option>
+                    <option value="K.S.Gayathri">K.S.Gayathri</option>
+                    <option value="S. Chithra">S. Chithra</option>
+                    <option value="B.Senthil Kumar">B.Senthil Kumar</option>
+                    <option value="T. Sree Sharmila">T. Sree Sharmila</option>
+                    <option value="P. Vasuki">P. Vasuki</option>
+                    <option value="R. Srinivasan">R. Srinivasan</option>
+                    <option value="Hema A. Murthy">Hema A. Murthy</option>
+                    <option value="T. Nagarajan">T. Nagarajan</option>
+                    <option value="P. Vijayalakshmi">P. Vijayalakshmi, </option>
+                    <option value="Ms. S. Vidhusha">Ms. S. Vidhusha</option>
+                    <option value="Ms. J. K. Josephine Julina">Ms. J. K. Josephine Julina</option>
+                    <option value="E. M. Malathy">E. M. Malathy </option>
+                    <option value="Dr. A. Sandana Karuppan">Dr. A. Sandana Karuppan</option>
+                    <option value="Dr. S Uma Maheswari">Dr. S Uma Maheswari</option>
+                    <option value="Dr. C. Aravindan">Dr. C. Aravindan</option>
+                    <option value="Mr. V. Thanikachalam">Mr. V. Thanikachalam</option>
+                    <option value="Ms. S. Poornima">Ms. S. Poornima</option>
+                    <option value="Ms. R. Swathika">Ms. R. Swathika</option>
+                    <option value="Ms. S. Sasirekha">Ms. S. Sasirekha</option>
+                    <option value="Dr. N. Bhalaji">Dr. N. Bhalaji</option>
+                    <option value="R.Vinob Chander">R.Vinob Chander</option>
+                    <option value="Ms. J. Sofia Jennifer">Ms. J. Sofia Jennifer</option>
+
+                </select>
+                <div class="invalid-feedback">
+                    Please enter staff attended.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nature_of_event">Nature of Event:</label>
+                <select id="nature_of_event" name="nature_of_event" class="form-control" required>
+                    <option value="">Select Nature of Event</option>
+                    <option value="National">National</option>
+                    <option value="International">International</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please enter nature of event.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="type_of_event">Type of Event:</label>
+                <select id="type_of_event" name="type_of_event" class="form-control" required>
+                    <option value="">Select Type of Event</option>
+                    <option value="Workshop">Workshop</option>
+                    <option value="FDP">FDP</option>
+                    <option value="Short time course">short time course</option>
+                    <option value="Seminar">Seminar</option>
+                    <option value="Conference">Conference</option>
+                    <option value="Webinar">Webinar</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please enter type of event.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="name_of_event">Name of the Event:</label>
+                <input type="text" id="name_of_event" name="name_of_event" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter name of the event.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="conducted_by_place">Conducted By / Place:</label>
+                <input type="text" id="conducted_by_place" name="conducted_by_place" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter conducted by / place.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="no_of_days">No of Days:</label>
+                <input type="number" id="no_of_days" name="no_of_days" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="duration">Duration:</label>
+                <input type="text" id="duration" name="duration" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter duration.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="proof_document">Proof of Document:</label>
+                <input type="file" id="proof_document" name="proof_document" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please select proof of document.
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Include required JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script>
+        $(function ()
+        {
+            // Initialize daterangepicker for duration field
+            $('#duration').daterangepicker({
+                // timePicker: true,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(1, 'hour'),
+                locale: {
+                    format: 'DD-MMMM-YYYY'
+                }
+            });
+        });
+    </script>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

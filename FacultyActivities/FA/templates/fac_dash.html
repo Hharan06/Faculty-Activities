@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #004B87;
+            --secondary-color: #007bff;
+        }
+
+        /* Adjustments */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('FA/image/ssn-college.jpeg'); 
+            background-size: cover;
+            background-position: center;
+            padding: 60px 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Label Styling */
+        .form-group label {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Select Styling */
+        select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 16px;
+            transition: box-shadow 0.3s ease;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Header Styling */
+        h1 {
+            color: var(--primary-color);
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            color: var(--primary-color);
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* Form Styling */
+        .form-group label {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-size: 16px;
+            transition: box-shadow 0.3s ease;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Option Buttons Styling */
+        .option-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .option-button {
+            display: flex;
+            align-items: center;
+            margin: 8px;
+            padding: 10px;
+            background-color: #fff;
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-button:hover {
+            background-color: var(--secondary-color);
+            color: #fff;
+        }
+
+        .option-button input[type="checkbox"] {
+            display: none;
+        }
+
+        .option-button input[type="checkbox"]:checked+label {
+            background-color: var(--secondary-color);
+            color: #fff;
+        }
+
+        /* Submit Button Styling */
+        .btn-submit {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-submit:hover {
+            background-color: #002B55;
+        }
+
+        /* Additional Styling for Enhancement */
+
+        .active {
+            background-color: #0056b3 !important;
+        }
+
+        .fa-spin {
+            animation: spin 2s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Welcome Back</h1>
+        <p>Select the category you want to retrieve.</p>
+
+        <form action="entry" method="POST">
+            {%csrf_token%}
+            <div class="form-group">
+                <label for="academicYearFrom">From (Academic Year)</label>
+                <select id="academicYearFrom" name="academicYearFrom">
+                    <option value="2015-2016">2015-2016</option>
+                    <option value="2016-2017">2016-2017</option>
+                    <option value="2017-2018">2017-2018</option>
+                    <option value="2018-2019">2018-2019</option>
+                    <option value="2019-2020">2019-2020</option>
+                    <option value="2020-2021">2020-2021</option>
+                    <option value="2021-2022">2021-2022</option>
+                    <option value="2022-2023">2022-2023</option>
+                    <option value="2023-2024">2023-2024</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Category</label>
+                <div class="option-buttons">
+                    <label class="option-button">
+                        <input type="checkbox" class="checkbox" data-value="SDP Attended">
+                        SDP Attended
+                    </label>
+                    <label class="option-button">
+                        <input type="checkbox" class="checkbox" data-value="Invited Talks">
+                        Invited Talks
+                    </label>
+                    <label class="option-button">
+                        <input type="checkbox" class="checkbox" data-value="SDP Organized">
+                        SDP Organized
+                    </label>
+                </div>
+                <input type="hidden" name="selectedCategory" id="selectedCategory">
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-spinner fa-spin" style="display:none;"></i>
+                Submit</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function ()
+        {
+            $(".option-button").click(function ()
+            {
+                var checkbox = $(this).find('.checkbox');
+                checkbox.prop("checked", !checkbox.prop("checked"));
+                $(".option-button").removeClass("active");
+                $(this).toggleClass("active");
+                var selectedCategories = $(".option-button.active .checkbox:checked").map(function ()
+                {
+                    return $(this).data("value");
+                }).get();
+                $("#selectedCategory").val(selectedCategories.join(', '));
+            });
+
+            $("form").submit(function ()
+            {
+                $(".btn-submit").prop("disabled", true);
+                $(".fa-spinner").show();
+            });
+        });
+    </script>
+</body>
+
+</html>

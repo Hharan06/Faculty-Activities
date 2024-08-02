@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Activities</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('FA/image/ssn-college.jpeg'); 
+            height: 100vh;
+            margin: 0;
+            display: block;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 2500px;
+            margin: 0 auto;
+            position: relative;
+            /* Added position relative */
+        }
+
+        .content-box {
+            border-radius: 20px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header styles */
+        h1 {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-size: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Paragraph styles */
+        p {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-size: 20px;
+        }
+
+        /* Button container styles */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Button styles */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2ecc71;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+            font-size: 18px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Form container styles */
+        .filter-form {
+            margin-bottom: 20px;
+        }
+
+        /* Table container styles */
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            background-color: #fff;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* Additional styles for the name input field */
+        .form-control {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* Filter dropdown styles */
+        .filter-dropdown {
+            display: none;
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+
+        .dropdown-content {
+            text-align: left;
+        }
+
+        /* Close button styles */
+        .close-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            /* Adjust the size as needed */
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #34495e;
+            text-decoration: none;
+            padding: 10px;
+            border: 2px solid #34495e;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #34495e;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div id="contentbox" class="content-box">
+                    <a href="details" class="back-link">Go back</a>
+                    <h1>Faculty Activities</h1>
+                    <p>Explore various activities and roles within the faculty community.</p>
+                    <div class="btn-container">
+                        <button type="button" class="btn btn-primary" onclick="toggleFilters()">
+                            <i class="fas fa-filter"></i> Filter
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="generateExcelFromDiv()">
+                            <i class="fas fa-file-excel"></i> Generate Excel
+                        </button>
+                    </div>
+                    <br>
+                    <form id="filterForm" class="filter-form" method="post" action="so_handle_filters">
+                        {% csrf_token %}
+                        <div id="filterDropdown" class="filter-dropdown">
+                            <div class="dropdown-content">
+                                <label for="coordinatorName">Name of the Coordinator:</label>
+                                <input type="text" id="coordinatorName" name="coordinatorName">
+                                <br>
+                                <label for="nameoftheevent">Name of the Event:</label>
+                                <input type="text" id="nameoftheevent" name="nameoftheevent">
+                                <br>
+                                <label for="eventType">Type of the Event:</label>
+                                <input type="text" id="eventTypeInputField" name="eventType">
+                                <br>
+                                <label for="resourcePerson">Resource Person:</label>
+                                <input type="text" id="resourcePersonInputField" name="resourcePerson">
+                                <br>
+                                <label for="sponsors">Sponsors:</label>
+                                <input type="text" id="sponsorsInputField" name="sponsors">
+                                <br>
+                                <label for="noOfParticipants">No of Participants:</label>
+                                <input type="number" id="noOfParticipantsInputField" name="noOfParticipants">
+                                <br>
+                                <label for="duration">Duration:</label>
+                                <select id="startmonth" name="startmonth">
+                                    <option value="">Select Month</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                                <select id="endmonth" name="endmonth">
+                                    <option value="">Select Month</option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                    <option value="nonee">None</option>
+                                </select>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                                <span class="close-btn" onclick="toggleFilters()">&times;</span>
+                            </div>
+                        </div>
+                    </form>
+       
+                    <div class="table-container" data-academic-year="{{ academic_year }}">
+                        {% for academic_year, data in grouped_data.items %}
+                            <h2>{{ academic_year }}</h2>
+                            <table class="table table-bordered" id="attendanceTable">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Name of the Coordinator</th>
+                                        <th>Name of the Event</th>
+                                        <th>Type of Event</th>
+                                        <th>Resource Person</th>
+                                        <th>Sponsors</th>
+                                        <th>No of Participants</th>
+                                        <th>Duration</th>
+    
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for obj in data %}
+                                        <tr>
+                                            <td>{{ obj.name_coord }}</td>
+                                            <td>{{ obj.name_of_event }}</td>
+                                            <td>{{ obj.type_of_event }}</td>
+                                            <td>{{ obj.resource_persons }}</td>
+                                            <td>{{ obj.sponsors }}</td>
+                                            <td>{{ obj.no_of_participants }}</td>
+                                            <td>{{ obj.duration }}</td>
+                                            
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    
+    <script>
+        let selectedEventType = "";
+        let selectedNatureEvent = "";
+
+        function generateExcelFromDiv() {
+            var tables = document.querySelectorAll('.table-bordered');
+
+            // Create a new workbook
+            var workbook = XLSX.utils.book_new();
+
+            tables.forEach(function(table, index) {
+                var wsData = [];
+
+                // Extract academic year from the previous sibling's textContent
+                var academicYear = table.previousElementSibling.textContent.trim();
+                console.log("Academic Year:", academicYear);
+
+                // Extract table headers
+                var headers = [];
+                var headerRow = table.querySelector('thead tr');
+                var headerCells = headerRow.querySelectorAll('th');
+                headerCells.forEach(function(cell) {
+                    headers.push(cell.innerText);
+                });
+                wsData.push(headers);
+
+                // Extract table data
+                var rows = table.querySelectorAll('tbody tr');
+                rows.forEach(function(row) {
+                    var rowData = [];
+                    var cells = row.querySelectorAll('td');
+                    cells.forEach(function(cell) {
+                        rowData.push(cell.innerText);
+                    });
+                    wsData.push(rowData);
+                });
+
+                // Create a worksheet with academic year as the sheet name
+                var worksheet = XLSX.utils.aoa_to_sheet(wsData);
+                XLSX.utils.book_append_sheet(workbook, worksheet, academicYear);
+            });
+
+            // Generate Excel file with multiple sheets
+            var wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+            var blob = new Blob([wbout], { type: "application/octet-stream" });
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "FA.xlsx";
+            link.click();
+        }
+
+        function toggleFilters()
+        {
+            const filterDropdown = document.getElementById("filterDropdown");
+            if (filterDropdown.style.display === "none" || filterDropdown.style.display === "")
+            {
+                filterDropdown.style.display = "block";
+                setTimeout(() =>
+                {
+                    filterDropdown.style.opacity = 1;
+                }, 10);
+                document.addEventListener('click', outsideClick);
+            } else
+            {
+                filterDropdown.style.opacity = 0;
+                setTimeout(() =>
+                {
+                    filterDropdown.style.display = "none";
+                }, 300);
+                document.removeEventListener('click', outsideClick);
+            }
+        }
+
+        function applyFilters()
+        {
+            document.getElementById("filterForm").submit();
+            toggleFilters(); 
+        }
+
+        function autocomplete(inp, arr)
+        {
+            var currentFocus;
+            inp.addEventListener("input", function (e)
+            {
+                var a, b, i, val = this.value;
+                closeAllLists();
+                if (!val)
+                {
+                    return false;
+                }
+                currentFocus = -1;
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                this.parentNode.appendChild(a);
+                for (i = 0; i < arr.length; i++)
+                {
+                    if (arr[i].toUpperCase().includes(val.toUpperCase()))
+                    { // Modified condition
+                        b = document.createElement("DIV");
+                        b.innerHTML = arr[i].replace(new RegExp(val, "gi"), match => `<strong>${match}</strong>`);
+                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                        b.addEventListener("click", function (e)
+                        {
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
+                }
+            });
+            inp.addEventListener("keydown", function (e)
+            {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40)
+                {
+                    currentFocus++;
+                    addActive(x);
+                } else if (e.keyCode == 38)
+                {
+                    currentFocus--;
+                    addActive(x);
+                } else if (e.keyCode == 13)
+                {
+                    e.preventDefault();
+                    if (currentFocus > -1)
+                    {
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
+
+            function addActive(x)
+            {
+                if (!x) return false;
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                x[currentFocus].classList.add("autocomplete-active");
+            }
+
+            function removeActive(x)
+            {
+                for (var i = 0; i < x.length; i++)
+                {
+                    x[i].classList.remove("autocomplete-active");
+                }
+            }
+
+            function closeAllLists(elmnt)
+            {
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++)
+                {
+                    if (elmnt != x[i] && elmnt != inp)
+                    {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+            document.addEventListener("click", function (e)
+            {
+                closeAllLists(e.target);
+            });
+        }
+
+        var coordinatorName = [];
+        var nameoftheevent = [];
+        var eventType = [];
+        var resourcePerson = [];
+        var sponsors = [];
+        var noOfParticipants = [];
+        var duration = [];
+
+        // Function to update autocomplete list from table data
+        function updateAutocompleteFromTable(tableId, columnIndex, autocompleteArray)
+        {
+            const table = document.getElementById(tableId);
+            const rows = table.querySelectorAll("tbody tr");
+            const uniqueValues = new Set();
+
+            // Extract unique values from the specified column
+            rows.forEach(row =>
+            {
+                const cells = row.querySelectorAll("td");
+                const cellValue = cells[columnIndex].innerText.trim();
+                if (cellValue !== "")
+                {
+                    uniqueValues.add(cellValue);
+                }
+            });
+
+            // Update autocomplete array
+            autocompleteArray.length = 0;
+            uniqueValues.forEach(value =>
+            {
+                autocompleteArray.push(value);
+            });
+        }
+
+        // Call the function to update autocomplete arrays from table data
+        updateAutocompleteFromTable("attendanceTable", 0, coordinatorName); // Update coordinatorName array from the first column
+        updateAutocompleteFromTable("attendanceTable", 1, nameoftheevent); // Update nameoftheevent array from the second column
+        updateAutocompleteFromTable("attendanceTable", 2, eventType); // Update eventType array from the third column
+        updateAutocompleteFromTable("attendanceTable", 3, resourcePerson); // Update resourcePerson array from the fourth column
+        updateAutocompleteFromTable("attendanceTable", 4, sponsors); // Update sponsors array from the fifth column
+        updateAutocompleteFromTable("attendanceTable", 5, noOfParticipants); // Update noOfParticipants array from the sixth column
+        updateAutocompleteFromTable("attendanceTable", 6, duration); // Update duration array from the seventh column
+
+        // Call autocomplete for input fields after updating arrays
+        autocomplete(document.getElementById("coordinatorName"), coordinatorName);
+        autocomplete(document.getElementById("nameoftheevent"), nameoftheevent);
+        autocomplete(document.getElementById("eventTypeInputField"), eventType);
+        autocomplete(document.getElementById("resourcePersonInputField"), resourcePerson);
+        autocomplete(document.getElementById("sponsorsInputField"), sponsors);
+        autocomplete(document.getElementById("noOfParticipantsInputField"), noOfParticipants);
+        autocomplete(document.getElementById("durationInputField"), duration);
+
+    </script>
+</body>
+
+    
+</html>

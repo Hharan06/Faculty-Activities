@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Activities</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://www.careerguide.com/career/wp-content/uploads/2023/08/ssn-college.jpeg');
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 2500px;
+            margin: 0 auto;
+        }
+
+        /* Content box styles */
+        .content-box {
+            border-radius: 20px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header styles */
+        h1 {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-size: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Paragraph styles */
+        p {
+            text-align: center;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-size: 20px;
+        }
+
+        /* Button container styles */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Button styles */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2ecc71;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+            font-size: 18px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #27ae60;
+        }
+
+        /* Form container styles */
+        .filter-form {
+            margin-bottom: 20px;
+        }
+
+        /* Table container styles */
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            background-color: #fff;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* Additional styles for the name input field */
+        .form-control {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /* Go back link styles */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #34495e;
+            text-decoration: none;
+            padding: 10px;
+            border: 2px solid #34495e;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #34495e;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="content-box">
+                    <a href="goback_facdash" class="back-link">Go back</a>
+                    <h1>SDP Organised</h1>
+                    <p>Explore various activities and roles within the faculty community.</p>
+
+                    <div class="btn-container">
+                        <a href="so_detail_enter" class="btn btn-success" onclick="newEntry()">
+                            <i class="fas fa-plus-circle"></i> New Entry
+                        </a>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="table table-bordered" id="attendanceTable">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Name of Coordinators</th>
+                                    <th>Type of Event</th>
+                                    <th>Name of Event</th>
+                                    <th>Duration</th>
+                                    <th>Number of Participants</th>
+                                    <th>Resource Persons</th>
+                                    <th>Name of Sponsors</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for obj in sdp_organised %}
+                                <tr>
+                                    <td>{{ obj.name_coord }}</td>
+                                    <td>{{ obj.type_of_event }}</td>
+                                    <td>{{ obj.name_of_event }}</td>
+                                    <td>{{ obj.duration }}</td>
+                                    <td>{{ obj.no_of_participants }}</td>
+                                    <td>{{ obj.resource_persons }}</td>
+                                    <td>{{ obj.sponsors }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
